@@ -1,0 +1,10 @@
+[package]
+name = "flock-controller"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+flock-api = { path = "../flock-api" }
+gtk4 = "0.4.8"

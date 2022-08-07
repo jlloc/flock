@@ -1,0 +1,49 @@
+[build]
+# Uncomment the relevant target for your chip here (ESP32, ESP32-S2, ESP32-S3 or ESP32-C3)
+target = "xtensa-esp32-espidf"
+#target = "xtensa-esp32s2-espidf"
+#target = "xtensa-esp32s3-espidf"
+#target = "riscv32imc-esp-espidf"
+
+[target.xtensa-esp32-espidf]
+linker = "ldproxy"
+
+[target.xtensa-esp32s2-espidf]
+linker = "ldproxy"
+
+[target.xtensa-esp32s3-espidf]
+linker = "ldproxy"
+
+[target.riscv32imc-esp-espidf]
+linker = "ldproxy"
+
+# Future - necessary for the experimental "native build" of esp-idf-sys with ESP32C3
+# See also https://github.com/ivmarkov/embuild/issues/16
+rustflags = ["-C", "default-linker-libraries"]
+
+[unstable]
+
+build-std = ["std", "panic_abort"]
+#build-std-features = ["panic_immediate_abort"] # Required for older ESP-IDF versions without a realpath implementation
+
+[env]
+# Note: these variables are not used when using pio builder
+# Enables the esp-idf-sys "native" build feature (`cargo build --features native`) to build against ESP-IDF stable (v4.4)
+ESP_IDF_VERSION = { value = "branch:release/v4.4" }
+# Enables the esp-idf-sys "native" build feature (`cargo build --features native`) to build against ESP-IDF master (mainline)
+#ESP_IDF_VERSION = { value = "master" }
+
+# This line is required for the camera bindings to be generated
+# (see the [[package.metadata.esp-idf-sys.extra-components]] line in this crate's Cargo.toml)
+ESP_IDF_SYS_ROOT_CRATE = { value = "flock-camera-sensor" }
+
+# WiFi SSID and PASS
+FLOCK_WIFI_SSID = { value = "" }
+FLOCK_WIFI_PASS = { value = "" }
+# MQTT broker address (e.g mqtt://hostname:1883)
+FLOCK_MQTT_BROKER_ADDR = { value = "" }
+# Publish topic of the flock controller
+# Client will publish on this topic to communicate with the controller
+FLOCK_CONTROLLER_TOPIC = { value = "" }
+# Client ID flock-client-<ID>
+FLOCK_CLIENT_ID = { value = "" }

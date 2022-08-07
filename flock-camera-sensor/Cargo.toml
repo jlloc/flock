@@ -1,0 +1,45 @@
+[package]
+name = "flock-camera-sensor"
+version = "0.1.0"
+authors = ["Joshua Locash <locashjosh@gmail.com>"]
+edition = "2021"
+resolver = "2"
+
+[profile.release]
+opt-level = "s"
+
+[profile.dev]
+debug = true # Symbols are nice and they don't increase the size on Flash
+opt-level = "z"
+
+
+[dependencies]
+anyhow = "1"
+base64 = "0.13.0"
+embedded-hal = "0.2.7"
+embedded-svc = "0.22.0"
+esp-idf-hal = "0.38.0"
+esp-idf-svc = "0.42.1"
+esp-idf-sys = { version = "0.31.6", features = ["binstart"] }
+log = "0.4.17"
+serde = "1.0.142"
+serde_json = "1.0.83"
+uuid = { version = "1.1.2", features = ["v4", "fast-rng"] }
+flock-api = { path = "../flock-api" }
+
+[build-dependencies]
+embuild = "0.30.2"
+anyhow = "1"
+
+[patch.crates-io]
+esp-idf-sys = { git = "https://github.com/esp-rs/esp-idf-sys", branch = "master" }
+embedded-svc = { git = "https://github.com/esp-rs/embedded-svc", branch = "master" }
+
+[features]
+pio = ["esp-idf-sys/pio"]
+experimental = ["esp-idf-svc/experimental", "esp-idf-hal/experimental", "embedded-svc/experimental"]
+
+[[package.metadata.esp-idf-sys.extra-components]]
+component_dirs = ["build/esp32-camera"]
+bindings_header = "build/bindings.h"
+bindings_module = "camera"

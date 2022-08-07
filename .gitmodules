@@ -1,0 +1,3 @@
+[submodule "flock-camera-sensor/build/esp32-camera"]
+	path = flock-camera-sensor/build/esp32-camera
+	url = https://github.com/espressif/esp32-camera.git

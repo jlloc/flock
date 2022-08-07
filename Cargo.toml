@@ -1,0 +1,6 @@
+[workspace]
+members = [
+	"flock-api",
+	"flock-camera-sensor",
+	"flock-controller",
+]
